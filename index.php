@@ -1,3 +1,34 @@
+<?php
+ require("function.php");
+   $errorExp  = $errorMg ="";
+   $valueExp=$valuenom  = $valueMg = $valueEnv ="";
+
+  $valid_data = false;
+  check();
+  if ($valid_data) {
+    // envoi du mail mail()
+   // $destinataire = $valueDes;
+    //$objet = $valueObj;
+    $nom=$valuenom;
+    $message = $valueMg;
+    $entete['From'] = "\"Expéditeur\" <".$valueExp.">";
+    $entete['Reply-To'] = "\"Expéditeur\" <".$valueExp.">";
+    //$entete['X-Priority'] = "1";
+    $envoi = mail("testutoriel@gmail.com",$nom,$message,$entete);
+    if ($envoi) {
+      $valueEnv = "Mail envoyé avec succès ! Merci et à très bientôt";
+       $errorExp  = $errorMg ="";
+      $valuenom= $valueExp  = $valueMg = "";
+      // mail envoyé au serveur correctement
+    }else {
+      //  mail non envoyé au serveur
+      $valueEnv = "Le message n'a pu être envoyé. Merci de réessayer ultérieurement !";
+    }
+  }
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -82,7 +113,24 @@
                         <li>Suivi des renumerations</li>
                         <li>Gestion et suivi des dossiers du personnel</li>
                     </ul>
-                
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fas fa-headphones fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="my-3">Assistance</h4>
+                    <ul class="text-left">
+                        <li>Conversion de documents en PDF</li>
+                        <li>Gestion des rendez-vous</li>
+                        <li>Automatisation des e-mail</li>
+                        <li>Transcription</li>
+                        <li>Recherche generale</li>
+                        <li>Service de facturation</li>
+                        <li>Saisie de document</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -173,40 +221,39 @@
                 <h2 class="section-heading text-uppercase">Contactez-nous</h2>
                 <!-- <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> -->
             </div>
-            <form id="contactForm" name="sentMessage" novalidate="novalidate">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input class="form-control" id="name" type="text" placeholder="Your Name *"
-                                required="required" data-validation-required-message="Please enter your name." />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="email" type="email" placeholder="Your Email *"
-                                required="required"
-                                data-validation-required-message="Please enter your email address." />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <input class="form-control" id="phone" type="tel" placeholder="Your Phone *"
-                                required="required"
-                                data-validation-required-message="Please enter your phone number." />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-textarea mb-md-0">
-                            <textarea class="form-control" id="message" placeholder="Your Message *" required="required"
-                                data-validation-required-message="Please enter a message."></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <div id="success"></div>
-                    <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit">Envoyer</button>
-                </div>
-            </form>
+            <form class="" action="" method="post">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Expéditeur <span>*</span> </label>
+              <input type="email" class="form-control" name="inputEmailExpediteur" 
+              placeholder="Tapez votre email !"  value="<?php echo $valueExp; ?>">
+              <p class="comment-error"> <?php echo $errorExp; ?> </p>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Destinataire <span>*</span> </label>
+              <input type="" class="form-control" name="nom"
+              placeholder="Entrez votre nom !">
+              <p class="comment-error"><?php echo $errorDes; ?></p>
+            </div>
+          </div>
+
+          <!--div class="form-row">
+            <label for="">Objet <span>*</span></label>
+            <input type="text" class="form-control" placeholder="Tapez l'objet de votre message !"
+             name="InputObjet">
+             <p class="comment-error"><?php echo $errorObj; ?></p>
+          </div--->
+
+          <div class="form-row">
+            <label for="">Message <span>*</span></label>
+            <textarea class="form-control" name="inputMessage" rows="8" cols="60"><?php echo $valueMg; ?></textarea>
+            <p class="comment-error"><?php echo $errorMg; ?></p>
+          </div>
+          <p class="comment-obligatoire"><span>*</span> Ces champs sont obligatoires !</p>
+
+          <input type="submit" class="btn btn-lg btn-success btn-block" name="" value="Envoyer">
+          <p class="comment-succes"><?php echo $valueEnv; ?></p>
+      </form>
         </div>
     </section>
     <!-- Footer-->
@@ -237,7 +284,7 @@
     <script src="assets/mail/jqBootstrapValidation.js"></script>
     <script src="assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <!--script src="js/scripts.js"></script--->
 </body>
 
 </html>
